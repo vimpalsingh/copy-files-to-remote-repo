@@ -15,6 +15,7 @@ DESTINATION_REPOSITORY_USERNAME="${8}"
 TARGET_BRANCH="${9}"
 COMMIT_MESSAGE="${10}"
 TARGET_DIRECTORY="${11}"
+FROM_FILE="${12}"
 
 if [ -z "$DESTINATION_REPOSITORY_USERNAME" ]
 then
@@ -119,7 +120,12 @@ then
 fi
 
 echo "[+] Copying contents of source repository folder $SOURCE_DIRECTORY to folder $TARGET_DIRECTORY in git repo $DESTINATION_REPOSITORY_NAME"
-cp -ra "$SOURCE_DIRECTORY"/. "$CLONE_DIR/$TARGET_DIRECTORY"
+while IFS="," read -r source destination
+do
+  mkdir -p "$CLONE_DIR/$TARGET_DIRECTORY/$destination"
+  echo "[+] Copying contents of $source to folder $destination in git repo $DESTINATION_REPOSITORY_NAME at location $CLONE_DIR/$TARGET_DIRECTORY"
+  cp -r "$SOURCE_DIRECTORY/$source" "$CLONE_DIR/$TARGET_DIRECTORY/$destination"
+done < <(tail -n +2 $FROM_FILE)
 cd "$CLONE_DIR"
 
 echo "[+] Files that will be pushed"

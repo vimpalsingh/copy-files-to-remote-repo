@@ -48,6 +48,10 @@ inputs:
     description: '[Optional] The directory to wipe and replace in the target repository'
     default: ''
     required: false
+  from-file:
+    description: 'comma seperated list of files or olders to copy from source location to destination location'
+    default: ''
+    required: true
         
 runs:
   using: docker
@@ -64,6 +68,7 @@ runs:
     - '${{ inputs.target-branch }}'
     - '${{ inputs.commit-message }}'
     - '${{ inputs.target-directory }}'
+    - '${{ inputs.from-file }}'
 branding:
   icon: git-commit
   color: green
