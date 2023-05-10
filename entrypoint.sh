@@ -125,7 +125,7 @@ do
   mkdir -p "$CLONE_DIR/$TARGET_DIRECTORY/$destination"
   echo "[+] Copying contents of $source to folder $destination in git repo $DESTINATION_REPOSITORY_NAME at location $CLONE_DIR/$TARGET_DIRECTORY"
   cp -r "$SOURCE_DIRECTORY/$source" "$CLONE_DIR/$TARGET_DIRECTORY/$destination"
-done < <(tail -n +2 $FROM_FILE)
+done < <(tail -n +2 $SOURCE_DIRECTORY/$FROM_FILE)
 cd "$CLONE_DIR"
 
 echo "[+] Files that will be pushed"
